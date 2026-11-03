@@ -1,0 +1,2121 @@
+Phase 1: Prepare Ubuntu VM
+Step 1: Open Terminal
+
+Press:
+
+Plain Text
+Ctrl + Alt + T
+
+You will see:
+
+Shell
+hyarel@ubuntu:~$
+
+This is called Terminal.
+
+Step 2: Update Ubuntu
+
+Run:
+
+Shell
+sudo apt update
+
+Then:
+
+Shell
+sudo apt upgrade -y
+
+Explanation:
+
+Plain Text
+update = check latest packages
+ 
+upgrade = install latest packages
+Step 3: Check Python
+
+Run:
+
+Shell
+python3 --version
+
+Example output:
+
+Shell
+Python 3.12.3
+
+If Python is not installed:
+
+Shell
+sudo apt install python3 -y
+Step 4: Check Pip
+
+Run:
+
+Shell
+pip3 --version
+
+If not installed:
+
+Shell
+sudo apt install python3-pip -y
+Phase 2: Create Project Folder
+Step 5: Move to Home Directory
+Shell
+cd ~
+
+Check location:
+
+Shell
+pwd
+
+Output:
+
+Shell
+/home/hyarel
+Step 6: Create Project Folder
+Shell
+mkdir student_portal
+
+Go inside:
+
+Shell
+cd student_portal
+
+Check:
+
+Shell
+pwd
+
+Output:
+
+Shell
+/home/hyarel/student_portal
+Phase 3: Create Virtual Environment
+Step 7: Create venv
+Shell
+python3 -m venv venv
+
+New folder:
+
+Plain Text
+student_portal/
+|
+└── venv/
+Step 8: Activate venv
+Shell
+source venv/bin/activate
+
+Output:
+
+Shell
+(venv) hyarel@ubuntu
+
+Notice:
+
+Plain Text
+(venv)
+
+appeared.
+
+This means virtual environment is active.
+
+Phase 4: Install Flask
+Step 9
+
+Install Flask:
+
+Shell
+pip install flask
+
+Check:
+
+Shell
+pip list
+
+You should see:
+
+Plain Text
+Flask
+Werkzeug
+Jinja2
+Phase 5: Create Project Structure
+Step 10
+
+Run:
+
+Shell
+mkdir templates
+mkdir static
+mkdir models
+mkdir services
+mkdir tests
+mkdir logs
+mkdir data
+
+Check:
+
+Shell
+ls
+
+Output:
+
+Plain Text
+data
+logs
+models
+services
+static
+templates
+tests
+venv
+Phase 6: Create Flask App
+Step 11
+
+Create app file:
+
+Shell
+touch app.py
+
+Open:
+
+Shell
+nano app.py
+
+Paste:
+
+Python
+from flask import Flask
+ 
+app = Flask(__name__)
+ 
+@app.route("/")
+def home():
+ 
+return "Welcome to Student Portal"
+ 
+if __name__ == "__main__":
+ 
+app.run(debug=True)
+
+Save:
+
+Plain Text
+Ctrl + O
+Enter
+Ctrl + X
+Phase 7: Run Flask
+Step 12
+
+Start app:
+
+Shell
+python app.py
+
+Output:
+
+Plain Text
+Running on http://127.0.0.1:5000
+Step 13
+
+Open browser inside Ubuntu VM.
+
+Visit:
+
+Plain Text
+http://127.0.0.1:5000
+
+Output:
+
+Plain Text
+Welcome to Student Portal
+
+🎉 First web application is running.
+
+Phase 8: Add Student Class
+Step 14
+
+Create model:
+
+Shell
+nano models/student.py
+
+Paste:
+
+Python
+class Student:
+ 
+def __init__(self,name,marks):
+ 
+self.name = name
+self.marks = marks
+ 
+def details(self):
+ 
+return f"{self.name} - {self.marks}"
+
+Save.
+
+Phase 9: Create HTML Page
+Step 15
+
+Create:
+
+Shell
+nano templates/index.html
+
+Paste:
+
+HTML
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Portal</title>
+</head>
+<body>
+ 
+<h1>Student Portal</h1>
+ 
+</body>
+</html>
+
+Save.
+
+Step 16
+
+Modify app.py
+
+Python
+from flask import Flask,render_template
+ 
+app = Flask(__name__)
+ 
+@app.route("/")
+def home():
+ 
+return render_template("index.html")
+ 
+if __name__ == "__main__":
+ 
+app.run(debug=True)
+
+Run:
+
+Shell
+python app.py
+
+Open browser:
+
+Plain Text
+http://127.0.0.1:5000
+
+You now see:
+
+Plain Text
+Student Portal
+Phase 10: Add SQLite Database
+Step 17
+
+Create:
+
+Shell
+nano database.py
+
+Paste:
+
+Python
+import sqlite3
+ 
+conn = sqlite3.connect("students.db")
+ 
+cursor = conn.cursor()
+ 
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS students(
+id INTEGER PRIMARY KEY,
+name TEXT,
+marks INTEGER
+)
+""")
+ 
+conn.commit()
+ 
+conn.close()
+
+Run:
+
+Shell
+python database.py
+
+File created:
+
+Plain Text
+students.db
+Phase 11: Save Students
+
+Create student service later:
+
+Python
+insert
+select
+update
+delete
+
+This will teach:
+
+Plain Text
+Class
+Object
+Constructor
+Functions
+SQLite
+Phase 12: Add JSON
+
+Create:
+
+Shell
+nano data/student.json
+
+Example:
+
+JSON
+{
+"name": "Hyarel",
+"marks": 90
+}
+
+Topics used:
+
+Plain Text
+JSON
+Dictionary
+File Handling
+Phase 13: Add CSV
+
+Create:
+
+Shell
+nano export_csv.py
+Python
+import csv
+ 
+with open("students.csv","w",newline="") as f:
+ 
+writer = csv.writer(f)
+ 
+writer.writerow(["Name","Marks"])
+ 
+writer.writerow(["Hyarel",90])
+
+Run:
+
+Shell
+python export_csv.py
+
+File created:
+
+Plain Text
+students.csv
+Phase 14: Add Logging
+Python
+import logging
+ 
+logging.basicConfig(
+filename="logs/app.log",
+level=logging.INFO
+)
+ 
+logging.info("Student Added")
+
+Check:
+
+Shell
+cat logs/app.log
+
+Output:
+
+Plain Text
+Student Added
+Phase 15: Unit Testing
+
+Create:
+
+Shell
+nano tests/test_student.py
+Python
+import unittest
+ 
+class TestDemo(unittest.TestCase):
+ 
+def test_add(self):
+ 
+self.assertEqual(2+3,5)
+ 
+if __name__ == "__main__":
+ 
+unittest.main()
+
+Run:
+
+Shell
+python tests/test_student.py
+
+Output:
+
+Plain Text
+OK
+Topics Learned in This Project
+Plain Text
+Variables
+Numbers
+Strings
+Boolean
+Input
+Functions
+Lists
+Dictionary
+File Handling
+Exception Handling
+Class
+Object
+Constructor
+Inheritance
+Polymorphism
+JSON
+CSV
+SQLite
+Logging
+Unit Testing
+Flask
+Project Structure
+Next Goal
+
+After this works successfully, the next phase would be:
+
+Plain Text
+Student Add Form
+Student Search
+Student Update
+Student Delete
+Login Page
+REST API
+Docker
+GitHub
+Deployment
+
+That will turn it into a real portfolio-ready Python web project.
+
+show me next phase with seqyences
+
+Perfect 👍. You have completed Phase 1 to Phase 15. Now let's move to the Next Phase (Real Project Development).
+
+Think like this:
+
+Plain Text
+Phase 1
+Environment Setup ✅
+ 
+Phase 2
+Basic Flask App ✅
+ 
+Phase 3
+Database ✅
+ 
+Phase 4
+Student CRUD System ← Next
+ 
+Phase 5
+Login System
+ 
+Phase 6
+REST APIs
+ 
+Phase 7
+Docker
+ 
+Phase 8
+GitHub
+ 
+Phase 9
+Deployment
+Phase 16: Student Registration Page
+
+Goal:
+
+Plain Text
+User enters:
+- Student Name
+- Student Marks
+ 
+Save into SQLite Database
+Step 1
+
+Open project:
+
+Shell
+cd ~/student_portal
+
+Activate venv:
+
+Shell
+source venv/bin/activate
+Step 2
+
+Create HTML form:
+
+Shell
+nano templates/add_student.html
+
+Paste:
+
+HTML
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Student</title>
+</head>
+<body>
+ 
+<h1>Add Student</h1>
+ 
+<form method="POST">
+ 
+Name:
+<input type="text" name="name">
+ 
+<br><br>
+ 
+Marks:
+<input type="number" name="marks">
+ 
+<br><br>
+ 
+<button type="submit">
+Save
+</button>
+ 
+</form>
+ 
+</body>
+</html>
+
+Save:
+
+Plain Text
+Ctrl + O
+Enter
+Ctrl + X
+Phase 17: Add Route
+
+Open:
+
+Shell
+nano app.py
+
+Add:
+
+Python
+from flask import Flask
+from flask import render_template
+from flask import request
+ 
+import sqlite3
+ 
+app = Flask(__name__)
+
+Add route:
+
+Python
+@app.route("/add", methods=["GET","POST"])
+def add_student():
+ 
+if request.method == "POST":
+ 
+name = request.form["name"]
+ 
+marks = request.form["marks"]
+ 
+conn = sqlite3.connect("students.db")
+ 
+cursor = conn.cursor()
+ 
+cursor.execute(
+"INSERT INTO students(name,marks) VALUES(?,?)",
+(name,marks)
+)
+ 
+conn.commit()
+ 
+conn.close()
+ 
+return "Student Saved"
+ 
+return render_template(
+"add_student.html"
+)
+Start Flask
+Shell
+python app.py
+
+Visit:
+
+Plain Text
+http://127.0.0.1:5000/add
+
+Fill:
+
+Plain Text
+Name: Hyarel
+ 
+Marks: 90
+
+Click:
+
+Plain Text
+Save
+
+Output:
+
+Plain Text
+Student Saved
+
+✅ First student stored in database.
+
+Phase 18: View Students
+
+Now we want:
+
+Plain Text
+See all students
+Step 1
+
+Add route:
+
+Python
+@app.route("/students")
+def students():
+ 
+conn = sqlite3.connect(
+"students.db"
+)
+ 
+cursor = conn.cursor()
+ 
+cursor.execute(
+"SELECT * FROM students"
+)
+ 
+rows = cursor.fetchall()
+ 
+conn.close()
+ 
+return str(rows)
+Open
+Plain Text
+http://127.0.0.1:5000/students
+
+Output:
+
+Python
+[(1,'Hyarel',90)]
+
+Student is coming from database.
+
+Phase 19: Create Students Table UI
+
+Create:
+
+Shell
+nano templates/students.html
+
+Paste:
+
+HTML
+<!DOCTYPE html>
+<html>
+<body>
+ 
+<h1>Students</h1>
+ 
+<table border="1">
+ 
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Marks</th>
+</tr>
+ 
+{% for row in rows %}
+ 
+<tr>
+<td>{{ row[0] }}</td>
+<td>{{ row[1] }}</td>
+<td>{{ row[2] }}</td>
+</tr>
+ 
+{% endfor %}
+ 
+</table>
+ 
+</body>
+</html>
+
+Modify route:
+
+Python
+@app.route("/students")
+def students():
+ 
+conn = sqlite3.connect(
+"students.db"
+)
+ 
+cursor = conn.cursor()
+ 
+cursor.execute(
+"SELECT * FROM students"
+)
+ 
+rows = cursor.fetchall()
+ 
+conn.close()
+ 
+return render_template(
+"students.html",
+rows=rows
+)
+
+Now open:
+
+Plain Text
+http://127.0.0.1:5000/students
+
+Output:
+
+Plain Text
+ID Name Marks
+ 
+1 Hyarel 90
+
+✅ Database records displayed.
+
+Phase 20: Search Student
+
+Goal:
+
+Plain Text
+Type Hyarel
+ 
+Find Hyarel
+
+Create route:
+
+Python
+@app.route("/search")
+def search():
+ 
+name = request.args.get("name")
+ 
+conn = sqlite3.connect(
+"students.db"
+)
+ 
+cursor = conn.cursor()
+ 
+cursor.execute(
+"SELECT * FROM students WHERE name=?",
+(name,)
+)
+ 
+rows = cursor.fetchall()
+ 
+conn.close()
+ 
+return str(rows)
+
+Open:
+
+Plain Text
+http://127.0.0.1:5000/search?name=Hyarel
+
+Output:
+
+Python
+[(1,'Hyarel',90)]
+
+✅ Searching implemented.
+
+Phase 21: Update Student
+
+Route:
+
+Python
+@app.route("/update")
+def update():
+ 
+conn = sqlite3.connect(
+"students.db"
+)
+ 
+cursor = conn.cursor()
+ 
+cursor.execute(
+"UPDATE students SET marks=95 WHERE id=1"
+)
+ 
+conn.commit()
+ 
+conn.close()
+ 
+return "Updated"
+
+Open:
+
+Plain Text
+http://127.0.0.1:5000/update
+
+Output:
+
+Plain Text
+Updated
+Phase 22: Delete Student
+Python
+@app.route("/delete")
+def delete():
+ 
+conn = sqlite3.connect(
+"students.db"
+)
+ 
+cursor = conn.cursor()
+ 
+cursor.execute(
+"DELETE FROM students WHERE id=1"
+)
+ 
+conn.commit()
+ 
+conn.close()
+ 
+return "Deleted"
+Phase 23: Add Login Page
+
+Create:
+
+Plain Text
+/login
+
+Features:
+
+Plain Text
+Username
+Password
+ 
+Login Button
+
+Learn:
+
+Plain Text
+Flask Forms
+Session
+Authentication
+Phase 24: Export CSV
+
+Create:
+
+Shell
+nano export_csv.py
+
+Code:
+
+Python
+import sqlite3
+import csv
+ 
+conn = sqlite3.connect(
+"students.db"
+)
+ 
+cursor = conn.cursor()
+ 
+cursor.execute(
+"SELECT * FROM students"
+)
+ 
+rows = cursor.fetchall()
+ 
+with open(
+"students.csv",
+"w",
+newline=""
+) as f:
+ 
+writer = csv.writer(f)
+ 
+writer.writerows(rows)
+ 
+print("CSV Created")
+
+Run:
+
+Shell
+python export_csv.py
+
+Output:
+
+Plain Text
+CSV Created
+Phase 25: Create REST API
+
+Install:
+
+Shell
+pip install flask
+
+API:
+
+Python
+@app.route("/api/students")
+def api_students():
+ 
+return {
+"name":"Hyarel",
+"marks":90
+}
+
+Visit:
+
+Plain Text
+http://127.0.0.1:5000/api/students
+
+Output:
+
+JSON
+{
+"name":"Hyarel",
+"marks":90
+}
+Your Next Learning Sequence
+Plain Text
+✅ Ubuntu Setup
+ 
+✅ Python
+ 
+✅ Flask
+ 
+✅ SQLite
+ 
+✅ Add Student
+ 
+✅ View Student
+ 
+✅ Search Student
+ 
+✅ Update Student
+ 
+✅ Delete Student
+ 
+⬜ Login System
+ 
+⬜ CSV Export
+ 
+⬜ JSON API
+ 
+⬜ Logging
+ 
+⬜ Unit Testing
+ 
+⬜ Docker
+ 
+⬜ GitHub
+ 
+⬜ Deployment
+
+This sequence takes you from a beginner to a portfolio-ready Python web application running entirely inside your Ubuntu VM.
+
+show next phase
+
+Perfect. 🚀 You have completed:
+
+Plain Text
+Phase 1 ✅ Ubuntu Setup
+Phase 2 ✅ Python Setup
+Phase 3 ✅ Virtual Environment
+Phase 4 ✅ Flask Installation
+Phase 5 ✅ Project Structure
+Phase 6 ✅ Flask App
+Phase 7 ✅ Run Flask
+Phase 8 ✅ Student Model
+Phase 9 ✅ HTML Page
+Phase 10 ✅ SQLite Database
+Phase 11 ✅ Add Students
+Phase 12 ✅ JSON
+Phase 13 ✅ CSV
+Phase 14 ✅ Logging
+Phase 15 ✅ Unit Testing
+ 
+Phase 16 ✅ Add Student
+Phase 17 ✅ Student Form
+Phase 18 ✅ View Students
+Phase 19 ✅ Student Table UI
+Phase 20 ✅ Search Student
+Phase 21 ✅ Update Student
+Phase 22 ✅ Delete Student
+Phase 23 ✅ Login Page
+Phase 24 ✅ Export CSV
+Phase 25 ✅ REST API
+
+Now we move to the Professional Developer Phase.
+
+Phase 26: Create Complete Login System
+Goal
+
+Instead of:
+
+Plain Text
+Anyone can access application
+
+We want:
+
+Plain Text
+User Login Required
+Step 1
+
+Install Flask Session Support
+
+Shell
+pip install flask-login
+
+Check:
+
+Shell
+pip list
+
+You should see:
+
+Plain Text
+Flask-Login
+Step 2
+
+Create Login Page
+
+Shell
+nano templates/login.html
+
+Paste:
+
+HTML
+<!DOCTYPE html>
+<html>
+<body>
+ 
+<h2>Login</h2>
+ 
+<form method="POST">
+ 
+Username:
+<input type="text" name="username">
+ 
+<br><br>
+ 
+Password:
+<input type="password" name="password">
+ 
+<br><br>
+ 
+<button type="submit">
+ 
+Login
+ 
+</button>
+ 
+</form>
+ 
+</body>
+</html>
+
+Save:
+
+Plain Text
+Ctrl + O
+Enter
+Ctrl + X
+Step 3
+
+Add Login Route
+
+Open:
+
+Shell
+nano app.py
+
+Add:
+
+Python
+from flask import session
+
+Create route:
+
+Python
+@app.route("/login", methods=["GET","POST"])
+def login():
+ 
+if request.method == "POST":
+ 
+username = request.form["username"]
+ 
+password = request.form["password"]
+ 
+if username == "admin" and password == "admin123":
+ 
+session["user"] = username
+ 
+return "Login Successful"
+ 
+return "Invalid Login"
+ 
+return render_template("login.html")
+Step 4
+
+Secret Key
+
+Add near the top:
+
+Python
+app.secret_key = "secret123"
+Test
+
+Run:
+
+Shell
+python app.py
+
+Visit:
+
+Plain Text
+http://127.0.0.1:5000/login
+
+Enter:
+
+Plain Text
+Username: admin
+ 
+Password: admin123
+
+Output:
+
+Plain Text
+Login Successful
+Phase 27: Protect Routes
+
+Currently:
+
+Plain Text
+Anyone can open
+ 
+/students
+
+Let's secure it.
+
+Step 1
+
+Modify route:
+
+Python
+@app.route("/students")
+def students():
+ 
+if "user" not in session:
+ 
+return "Please Login"
+ 
+return "Students Data"
+Test
+
+Without login:
+
+Plain Text
+Please Login
+
+After login:
+
+Plain Text
+Students Data
+
+✅ Authentication completed.
+
+Phase 28: Navigation Bar
+
+Create:
+
+Shell
+nano templates/base.html
+
+Paste:
+
+HTML
+<!DOCTYPE html>
+ 
+<html>
+ 
+<body>
+ 
+<a href="/">Home</a>
+ 
+|
+ 
+<a href="/">Students</a>
+ 
+|
+ 
+<a href="/">Add Student</a>
+ 
+|
+ 
+<a href="/">Login</a>
+ 
+<hr>
+ 
+{% block content %}
+{% endblock %}
+ 
+</body>
+ 
+</html>
+
+Result:
+
+Plain Text
+Home | Students | Add Student | Login
+
+appears on every page.
+
+Phase 29: Better Student List
+
+Current:
+
+Plain Text
+ID Name Marks
+
+Let's improve.
+
+Modify:
+
+HTML
+<table border="1">
+ 
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Marks</th>
+<th>Status</th>
+</tr>
+ 
+{% for row in rows %}
+ 
+<tr>
+ 
+<td>{{row[0]}}</td>
+ 
+<td>{{row[1]}}</td>
+ 
+<td>{{row[2]}}</td>
+ 
+<td>
+ 
+{% if row[2] >= 35 %}
+ 
+PASS
+ 
+{% else %}
+ 
+FAIL
+ 
+{% endif %}
+ 
+</td>
+ 
+</tr>
+ 
+{% endfor %}
+ 
+</table>
+
+Output:
+
+Plain Text
+ID NAME MARKS STATUS
+ 
+1 Hyarel 90 PASS
+Phase 30: Search Page UI
+
+Create:
+
+Shell
+nano templates/search.html
+HTML
+<h2>Search Student</h2>
+ 
+<form method="GET">
+ 
+<input type="text"
+name="name">
+ 
+<button>
+ 
+Search
+ 
+</button>
+ 
+</form>
+
+Result:
+
+Plain Text
+User types:
+ 
+Hyarel
+ 
+Search
+Phase 31: Bootstrap UI
+
+Install:
+
+Shell
+pip install bootstrap-flask
+
+Or simply add:
+
+HTML
+<link
+href="/">
+
+Now application becomes:
+
+Plain Text
+Professional UI
+Phase 32: Exception Handling Everywhere
+
+Current:
+
+Python
+conn = sqlite3.connect(...)
+
+Improve:
+
+Python
+try:
+ 
+conn = sqlite3.connect(...)
+ 
+except Exception as e:
+ 
+print(e)
+
+Now database errors won't crash app.
+
+Phase 33: Logging Everything
+
+Create:
+
+Python
+import logging
+
+Configure:
+
+Python
+logging.basicConfig(
+ 
+filename="logs/app.log",
+ 
+level=logging.INFO
+ 
+)
+
+When student added:
+
+Python
+logging.info(
+"Student Added"
+)
+
+View log:
+
+Shell
+cat logs/app.log
+
+Output:
+
+Plain Text
+Student Added
+Phase 34: Student Search API
+
+Route:
+
+Python
+@app.route("/api/student/<name>")
+def api_student(name):
+ 
+return {
+ 
+"student": name
+ 
+}
+
+Open:
+
+Plain Text
+http://127.0.0.1:5000/api/student/Hyarel
+
+Output:
+
+JSON
+{
+"student":"Hyarel"
+}
+Phase 35: Git
+
+Initialize:
+
+Shell
+git init
+
+Check:
+
+Shell
+git status
+
+Add:
+
+Shell
+git add .
+
+Commit:
+
+Shell
+git commit -m "Initial commit"
+Phase 36: GitHub
+
+Create repository:
+
+Plain Text
+student_portal
+
+Push:
+
+Shell
+git remote add origin URL
+ 
+git push -u origin main
+Phase 37: Docker
+
+Create:
+
+Shell
+nano Dockerfile
+Shell
+docker isn’t fully supported. Syntax highlighting is based on Shell.
+FROM python:3.12
+ 
+WORKDIR /app
+ 
+COPY . .
+ 
+RUN pip install flask
+ 
+CMD ["python","app.py"]
+
+Build:
+
+Shell
+docker build -t studentportal:v1 .
+
+Run:
+
+Shell
+docker run -p 5000:5000 studentportal:v1
+Phase 38: Production Ready Features
+
+Add:
+
+Plain Text
+Pagination
+ 
+Search
+ 
+Sorting
+ 
+Filtering
+ 
+Export CSV
+ 
+Export JSON
+ 
+Student Dashboard
+ 
+Admin Dashboard
+Final Project Status
+
+After Phase 38:
+
+Plain Text
+✅ Python
+✅ Flask
+✅ HTML
+✅ CSS
+✅ SQLite
+✅ CRUD
+✅ Search
+✅ Login
+✅ Session Management
+✅ File Handling
+✅ CSV
+✅ JSON
+✅ Logging
+✅ Exception Handling
+✅ Unit Testing
+✅ REST API
+✅ Bootstrap
+✅ Git
+✅ GitHub
+✅ Docker
+ 
+Portfolio Ready ✅
+Interview Ready ✅
+Next Target
+
+After this project, build:
+
+Plain Text
+Project 2:
+Employee Management System
+ 
+Project 3:
+Expense Tracker
+ 
+Project 4:
+RAG + FastAPI + Ollama + ChromaDB
+ 
+Project 5:
+AI Chatbot Portal
+
+This sequence will take you from beginner Python to real-world backend development.
+
+next phase
+
+Excellent. 🎉
+
+At this point, your project is already:
+
+Plain Text
+✅ Flask Application
+✅ SQLite Database
+✅ CRUD Operations
+✅ Login System
+✅ Search
+✅ JSON API
+✅ CSV Export
+✅ Logging
+✅ Unit Testing
+✅ Git
+✅ GitHub
+✅ Docker
+
+Now we move into the Enterprise Phase.
+
+Phase 39: Project Refactoring
+Goal
+
+Current:
+
+Plain Text
+Everything inside app.py
+
+Bad for large applications.
+
+Move code into layers.
+
+Current Structure
+Plain Text
+student_portal/
+ 
+app.py
+database.py
+New Structure
+Plain Text
+student_portal/
+ 
+app.py
+ 
+models/
+student.py
+ 
+services/
+student_service.py
+ 
+repository/
+student_repository.py
+ 
+templates/
+static/
+Why?
+Plain Text
+Model
+=
+Student Object
+ 
+Repository
+=
+Database Access
+ 
+Service
+=
+Business Logic
+ 
+App
+=
+Routes
+
+This is used in companies.
+
+Phase 40: Build Real Student Dashboard
+Goal
+
+Current:
+
+Plain Text
+plain table
+
+New:
+
+Plain Text
+Total Students
+ 
+Average Marks
+ 
+Highest Marks
+ 
+Lowest Marks
+Example
+Python
+cursor.execute(
+"SELECT COUNT(*) FROM students"
+)
+
+Output:
+
+Plain Text
+105
+Average Marks
+Python
+cursor.execute(
+"SELECT AVG(marks) FROM students"
+)
+
+Output:
+
+Plain Text
+86.5
+Phase 41: Student Result Analytics
+
+Make report:
+
+Plain Text
+Pass Count
+ 
+Fail Count
+ 
+Top Student
+ 
+Average Marks
+Example
+Python
+cursor.execute(
+"""
+SELECT COUNT(*)
+FROM students
+WHERE marks >= 35
+"""
+)
+Phase 42: Search + Sorting + Filtering
+
+Current:
+
+Plain Text
+Search by Name
+
+Add:
+
+Plain Text
+Search by Marks
+ 
+Sort by Marks
+ 
+Sort by Name
+ 
+Show Pass Students
+ 
+Show Fail Students
+Example
+Python
+SELECT *
+FROM students
+ORDER BY marks DESC
+
+Output:
+
+Plain Text
+Highest Marks First
+Phase 43: Pagination
+
+Problem:
+
+Plain Text
+10000 Students
+
+Browser becomes slow.
+
+Solution
+Python
+LIMIT 10 OFFSET 0
+
+Page 1:
+
+Plain Text
+10 Records
+
+Page 2:
+
+Plain Text
+10 Records
+Phase 44: Upload Student Files
+
+Allow users to upload:
+
+Plain Text
+PDF
+ 
+Images
+ 
+Documents
+Create Folder
+Shell
+mkdir uploads
+Flask Upload
+Python
+file = request.files["file"]
+
+Save:
+
+Python
+file.save(...)
+Phase 45: User Registration
+
+Current:
+
+Plain Text
+One hardcoded admin
+
+New:
+
+Plain Text
+Register
+ 
+Login
+ 
+Logout
+Database
+SQL
+users
+---------
+id
+username
+password
+Phase 46: Password Encryption
+
+Never store this:
+
+Plain Text
+admin123
+
+Store:
+
+Plain Text
+hashed password
+
+Install:
+
+Shell
+pip install bcrypt
+Example
+Python
+import bcrypt
+Phase 47: Flask Blueprints
+
+Current:
+
+Plain Text
+Everything in app.py
+
+Split:
+
+Plain Text
+student_routes.py
+ 
+auth_routes.py
+ 
+api_routes.py
+Phase 48: Flask REST API
+Goal
+
+Mobile Apps can connect.
+
+GET Students
+Python
+/api/students
+
+Output:
+
+JSON
+[
+{
+"name":"Hyarel",
+"marks":90
+}
+]
+POST Student
+Python
+/api/students
+
+Add record.
+
+DELETE Student
+Python
+/api/students/1
+
+Delete record.
+
+Phase 49: API Testing
+
+Install:
+
+Shell
+sudo snap install postman
+
+Use:
+
+Plain Text
+GET
+ 
+POST
+ 
+PUT
+ 
+DELETE
+Phase 50: Environment Variables
+
+Never hardcode:
+
+Python
+password="admin123"
+
+Use:
+
+Plain Text
+.env
+
+Install:
+
+Shell
+pip install python-dotenv
+Phase 51: Docker Compose
+
+Current:
+
+Plain Text
+One Container
+
+New:
+
+Plain Text
+Flask
+ 
+SQLite
+ 
+Prometheus
+ 
+Grafana
+docker-compose.yml
+YAML
+services:
+web:
+Phase 52: Monitoring
+
+Install:
+
+Shell
+pip install prometheus-client
+Metrics
+Python
+Counter
+Gauge
+Histogram
+Phase 53: Prometheus
+
+Collect:
+
+Plain Text
+Requests
+ 
+Errors
+ 
+Response Time
+Phase 54: Grafana Dashboard
+
+Visualize:
+
+Plain Text
+Students Added
+ 
+Errors
+ 
+API Calls
+ 
+Response Time
+Phase 55: Unit Testing Expansion
+
+Current:
+
+Plain Text
+1 Test
+
+Goal:
+
+Plain Text
+20+ Tests
+
+Test:
+
+Plain Text
+Login
+ 
+Add Student
+ 
+Delete Student
+ 
+Database Queries
+Phase 56: Integration Testing
+
+Check:
+
+Plain Text
+Frontend
+→ Flask
+→ Database
+
+works together.
+
+Phase 57: Git Workflow
+
+Create branches:
+
+Shell
+git checkout -b feature-login
+Shell
+git checkout -b feature-api
+Phase 58: CI/CD
+
+GitHub Actions.
+
+Automatic:
+
+Plain Text
+Build
+ 
+Test
+ 
+Deploy
+Phase 59: Deploy to Ubuntu Server
+
+Install:
+
+Shell
+sudo apt install nginx
+
+Run Flask behind:
+
+Plain Text
+Nginx
+Phase 60: Gunicorn
+
+Install:
+
+Shell
+pip install gunicorn
+
+Run:
+
+Shell
+gunicorn app:app
+Phase 61: HTTPS
+
+Install:
+
+Shell
+sudo apt install certbot
+
+Generate SSL:
+
+Shell
+sudo certbot --nginx
+Phase 62: Production Ready Application
+
+You now have:
+
+Plain Text
+✅ Python
+✅ Flask
+✅ SQLite
+✅ Login
+✅ Registration
+✅ Search
+✅ Sorting
+✅ Filtering
+✅ APIs
+✅ JSON
+✅ CSV
+✅ Logging
+✅ Unit Testing
+✅ Docker
+✅ GitHub
+✅ Grafana
+✅ Prometheus
+✅ Nginx
+✅ SSL
+✅ Production Deployment
+Final Result
+
+Portfolio Project:
+
+Plain Text
+Student Management Portal
+ 
+Skills Demonstrated
+ 
+Python
+Flask
+SQLite
+HTML
+CSS
+JSON
+CSV
+OOP
+Exception Handling
+REST API
+Docker
+GitHub
+Unit Testing
+Grafana
+Prometheus
+Linux
+Nginx
+Deployment
