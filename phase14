@@ -1,0 +1,132 @@
+from flask import Flask
+import logging
+import os
+
+# Create logs folder automatically
+os.makedirs("logs", exist_ok=True)
+
+# Configure logging
+logging.basicConfig(
+    filename="logs/app.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+
+app = Flask(__name__)
+
+
+--------------
+
+
+
+Log When a Student Is Added
+
+Inside your /add route:
+
+
+@app.route("/add", methods=["GET", "POST"])
+def add_student():
+
+    if request.method == "POST":
+
+        name = request.form["name"]
+        marks = request.form["marks"]
+
+        conn = sqlite3.connect("students.db")
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "INSERT INTO students(name, marks) VALUES(?, ?)",
+            (name, marks)
+        )
+
+        conn.commit()
+        conn.close()
+
+        # Log activity
+        logging.info(f"Student Added: {name}, Marks: {marks}")
+
+        return "Student Saved"
+
+    return render_template("add_student.html")
+
+
+
+--------
+
+
+
+Log Application Startup
+
+At the bottom of app.py:
+
+-----
+
+if __name__ == "__main__":
+
+    logging.info("Application Started")
+
+    app.run(debug=True)
+
+
+----------
+
+
+
+Project Structure
+
+
+
+student_portal/
+
+├── app.py
+├── students.db
+├── logs/
+│   └── app.log
+├── templates/
+├── static/
+├── models/
+├── services/
+└── venv/
+
+
+
+
+--------------
+
+
+Run the Application
+
+Run the Application
+
+
+cd ~/student_portal
+
+source venv/bin/activate
+
+python app.py
+
+
+-------------
+
+
+
+View Logs
+Shell
+cat logs/app.log
+
+
+
+==============
+
+
+
+
+2026-11-03 10:30:01,100 - INFO - Application Started
+2026-11-03 10:32:15,450 - INFO - Student Added: Hyarel, Marks: 90
+
+
+-----------------------
+
+
