@@ -1,0 +1,335 @@
+Phase 21: Docker (Containerize Your Student Portal)
+
+Now that you have:
+
+Plain Text
+✅ Flask
+✅ SQLite
+✅ Login
+✅ Search
+✅ Student List
+✅ CSV Export
+✅ Bootstrap
+✅ GitHub
+
+The next step is Docker.
+
+Docker lets you package your entire application so it runs anywhere with the same environment.
+
+What is Docker?
+
+Without Docker:
+
+Plain Text
+Ubuntu VM
+↓
+Install Python
+↓
+Install Flask
+↓
+Install Dependencies
+↓
+Run App
+
+With Docker:
+
+Plain Text
+docker run studentportal
+
+Everything is already inside the container.
+
+Step 1: Install Docker
+
+Check:
+
+Shell
+docker --version
+
+If Docker is not installed:
+
+Shell
+sudo apt update
+sudo apt install docker.io -y
+
+Start Docker:
+
+Shell
+sudo systemctl start docker
+
+Enable Docker:
+
+Shell
+sudo systemctl enable docker
+
+Verify:
+
+Shell
+docker --version
+
+Example:
+
+Plain Text
+Docker version 24.x.x
+Step 2: Go To Project
+Shell
+cd ~/student_portal
+
+Check files:
+
+Shell
+ls
+
+Expected:
+
+Plain Text
+app.py
+students.db
+templates
+logs
+requirements.txt
+Step 3: Create requirements.txt
+
+If not already created:
+
+Shell
+pip freeze > requirements.txt
+
+Verify:
+
+Shell
+cat requirements.txt
+
+Example:
+
+Plain Text
+Flask==3.x.x
+Step 4: Create Dockerfile
+
+Create:
+
+Shell
+nano Dockerfile
+
+Paste:
+
+Dockerfile
+FROM python:3.12
+ 
+WORKDIR /app
+ 
+COPY . .
+ 
+RUN pip install -r requirements.txt
+ 
+EXPOSE 5000
+ 
+CMD ["python3", "app.py"]
+
+Save:
+
+Plain Text
+Ctrl + O
+Enter
+Ctrl + X
+Step 5: Verify Project Structure
+Plain Text
+student_portal/
+ 
+├── app.py
+├── Dockerfile
+├── requirements.txt
+├── students.db
+├── templates/
+├── logs/
+└── static/
+Step 6: Build Docker Image
+
+Run:
+
+Shell
+sudo docker build -t studentportal:v1 .
+
+Explanation:
+
+Plain Text
+studentportal = image name
+v1 = version
+. = current directory
+ 
+
+Wait for:
+
+Plain Text
+Successfully built
+Successfully tagged studentportal:v1
+Step 7: Verify Image
+Shell
+sudo docker images
+
+Expected:
+
+Plain Text
+REPOSITORY TAG
+studentportal v1
+Step 8: Run Container
+
+Run:
+
+Shell
+sudo docker run -p 5000:5000 studentportal:v1
+
+Explanation:
+
+Plain Text
+Host Port Container Port
+ 
+5000 ---> 5000
+Step 9: Open Browser
+
+Visit:
+
+Plain Text
+http://127.0.0.1:5000
+
+You should see:
+
+Plain Text
+Student Portal
+
+🎉 Now Flask is running inside Docker.
+
+Step 10: Check Running Containers
+
+Open another terminal:
+
+Shell
+sudo docker ps
+ 
+
+Example:
+
+Plain Text
+CONTAINER ID
+IMAGE
+PORTS
+ 
+studentportal:v1
+Step 11: Stop Container
+
+Find container id:
+
+Shell
+sudo docker ps
+
+Then:
+
+Shell
+sudo docker stop <container_id>
+
+Example:
+
+Shell
+sudo docker stop a1b2c3d4
+ 
+Step 12: Run In Background
+
+Instead of blocking terminal:
+
+Shell
+sudo docker run -d -p 5000:5000 studentportal:v1
+
+Now terminal is free.
+
+Check:
+
+Shell
+sudo docker ps
+Step 13: View Logs
+Shell
+sudo docker logs <container_id>
+
+Example:
+
+Shell
+sudo docker logs a1b2c3d4
+Step 14: Enter Container
+Shell
+sudo docker exec -it <container_id> bash
+
+Example:
+
+Shell
+sudo docker exec -it a1b2c3d4 bash
+
+Inside container:
+
+Shell
+root@container:/app#
+
+Check files:
+
+Shell
+ls
+Step 15: Remove Container
+
+List containers:
+
+Shell
+sudo docker ps -a
+
+Remove:
+
+Shell
+sudo docker rm <container_id>
+Step 16: Remove Image
+Shell
+sudo docker images
+
+Remove:
+
+Shell
+sudo docker rmi studentportal:v1
+What You Learned
+Plain Text
+✅ Docker Install
+✅ Dockerfile
+✅ Build Image
+✅ Run Container
+✅ Docker Logs
+✅ Docker Exec
+✅ Docker Stop
+✅ Docker Remove
+Project Status
+Plain Text
+✅ Add Student
+✅ View Students
+✅ Search Student
+✅ Login
+✅ CSV Export
+✅ Bootstrap UI
+✅ GitHub
+✅ Docker
+ 
+Next:
+➡ Update Student
+➡ Delete Student
+➡ JSON API
+➡ Docker Compose
+➡ Nginx
+➡ HTTPS
+➡ Cloud Deployment
+Recommended Next Phase
+
+After Docker:
+
+Plain Text
+Phase 22 → JSON API
+Phase 23 → Update Student UI
+Phase 24 → Delete Student UI
+Phase 25 → Docker Compose
+Phase 26 → Deploy on Ubuntu Server
+
+At this point, your Student Portal becomes a strong portfolio project demonstrating Flask, SQLite, GitHub, Docker, HTML, Bootstrap, Logging, Authentication, and CRUD. 🚀
+
+Fix Flask for Docker networkingAdd Docker ComposeCreate a production Dockerfile
+FilesFiles
