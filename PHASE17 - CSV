@@ -1,0 +1,262 @@
+Phase 18: CSV Export
+
+Now let's export your student data from SQLite into a CSV file that can be opened in:
+
+Microsoft Excel
+LibreOffice Calc
+Google Sheets
+What is CSV?
+
+CSV means:
+
+Plain Text
+Comma Separated Values
+
+Example:
+
+CSV
+ID,Name,Marks
+1,Hyarel,90
+2,Ram,80
+
+
+
+
+=============
+
+
+Step 1: Create Export Script
+
+Go to project folder:
+
+Shell
+cd ~/student_portal
+
+Create file:
+
+Shell
+nano export_csv.py
+
+
+Step 2: Add Code
+
+import sqlite3
+import csv
+
+# Connect Database
+conn = sqlite3.connect("students.db")
+
+cursor = conn.cursor()
+
+# Get Student Data
+cursor.execute(
+    "SELECT * FROM students"
+)
+
+rows = cursor.fetchall()
+
+# Create CSV File
+with open(
+    "students.csv",
+    "w",
+    newline=""
+) as file:
+
+    writer = csv.writer(file)
+
+    # Header Row
+    writer.writerow(
+        ["ID", "Name", "Marks"]
+    )
+
+    # Student Rows
+    writer.writerows(rows)
+
+conn.close()
+
+print("CSV File Created Successfully")
+
+
+=============
+
+
+Step 3: Save File
+
+Press:
+
+Plain Text
+Ctrl + O
+
+Press:
+
+Plain Text
+Enter
+
+Press:
+
+Plain Text
+Ctrl + X
+
+=============
+
+
+Step 4: Run Script
+
+Execute:
+
+Shell
+python3 export_csv.py
+
+Expected output:
+
+Plain Text
+CSV File Created Successfully
+
+
+=============
+
+
+Step 5: Verify File
+
+Check:
+
+Shell
+ls
+
+Expected:
+
+Plain Text
+students.csv
+
+
+============
+
+
+
+Step 6: View File
+
+Run:
+
+Shell
+cat students.csv
+
+Example:
+
+CSV
+ID,Name,Marks
+1,Hyarel,90
+
+==========
+
+
+Step 7: Open CSV in Ubuntu
+
+Install LibreOffice if needed:
+
+Shell
+sudo apt install libreoffice -y
+
+Open file:
+
+Shell
+libreoffice students.csv
+
+You will see:
+
+Plain Text
++----+--------+-------+
+| ID | Name | Marks |
++----+--------+-------+
+| 1 | Hyarel | 90 |
++----+--------+-------+
+
+
+
+================
+
+
+Make CSV Export Available From Browser
+
+Add route in app.py:
+
+Python
+from flask import send_file
+
+
+@app.route("/export")
+def export():
+
+    import csv
+
+    conn = sqlite3.connect("students.db")
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM students"
+    )
+
+    rows = cursor.fetchall()
+
+    with open(
+        "students.csv",
+        "w",
+        newline=""
+    ) as file:
+
+        writer = csv.writer(file)
+
+        writer.writerow(
+            ["ID", "Name", "Marks"]
+        )
+
+        writer.writerows(rows)
+
+    conn.close()
+
+    return send_file(
+        "students.csv",
+        as_attachment=True
+    )
+
+
+
+===============
+
+
+Test
+
+Restart Flask:
+
+Shell
+python3 app.py
+
+Open:
+
+Plain Text
+http://127.0.0.1:5000/export
+ 
+
+Browser should automatically download:
+
+Plain Text
+students.csv
+What You Learned
+
+✅ import csv
+ ✅ File Handling
+ ✅ Database Export
+ ✅ CSV Creation
+ ✅ Flask File Download
+ ✅ SQLite Data Extraction
+
+
+
+
+
+
+
+
+
+
+
