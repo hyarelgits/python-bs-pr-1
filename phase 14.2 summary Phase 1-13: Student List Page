@@ -1,0 +1,405 @@
+Phase 1: Ubuntu Setup
+Check Python
+Shell
+python3 --version
+
+Output:
+
+Plain Text
+Python 3.x.x
+ 
+Check Pip
+Shell
+pip3 --version
+Phase 2: Create Project
+Create Folder
+Shell
+mkdir student_portal
+Enter Folder
+Shell
+cd student_portal
+Verify
+Shell
+pwd
+
+Output:
+
+Plain Text
+/root/student_portal
+Phase 3: Create Virtual Environment
+Create
+Shell
+python3 -m venv venv
+Activate
+Shell
+source venv/bin/activate
+
+Prompt changes:
+
+Plain Text
+(venv) root@devops:~/student_portal#
+Phase 4: Install Flask
+Install
+Shell
+pip install flask
+Verify
+Shell
+pip list
+Phase 5: Create Project Structure
+Shell
+mkdir templates
+mkdir static
+mkdir logs
+mkdir tests
+
+Verify:
+
+Shell
+ls
+Phase 6: Create Flask Application
+app.py
+Python
+from flask import Flask
+ 
+app = Flask(__name__)
+ 
+@app.route("/")
+def home():
+return "Student Portal"
+ 
+if __name__ == "__main__":
+app.run(debug=True)
+
+Run:
+
+Shell
+python3 app.py
+
+Open:
+
+Plain Text
+http://127.0.0.1:5000
+ 
+
+Success:
+
+Plain Text
+Student Portal
+Phase 7: Create Home Page
+templates/index.html
+HTML
+<!DOCTYPE html>
+<html>
+<body>
+ 
+<h1>Welcome to Student Portal</h1>
+ 
+</body>
+</html>
+Phase 8: Create Database
+database.py
+Python
+import sqlite3
+ 
+conn = sqlite3.connect("students.db")
+ 
+cursor = conn.cursor()
+ 
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS students(
+id INTEGER PRIMARY KEY,
+name TEXT,
+marks INTEGER
+)
+""")
+ 
+conn.commit()
+ 
+conn.close()
+
+Run:
+
+Shell
+python3 database.py
+
+Success:
+
+Plain Text
+students.db created
+Phase 9: Logging
+
+Added:
+
+Python
+import logging
+import os
+ 
+os.makedirs("logs", exist_ok=True)
+ 
+logging.basicConfig(
+filename="logs/app.log",
+level=logging.INFO,
+format="%(asctime)s - %(levelname)s - %(message)s"
+)
+Verify
+Shell
+cat logs/app.log
+Problem 1: Port 5000 Already In Use
+
+Error:
+
+Plain Text
+Address already in use
+
+Solution:
+
+Shell
+sudo fuser -k 5000/tcp
+
+Restart:
+
+Shell
+python3 app.py
+
+Fixed ✅
+
+Phase 10: Create Add Student Form
+templates/add_student.html
+HTML
+<form method="POST">
+ 
+<input type="text" name="name">
+ 
+<input type="number" name="marks">
+ 
+<button type="submit">
+Save Student
+</button>
+ 
+</form>
+Phase 11: Add Student Route
+Python
+@app.route("/add", methods=["GET","POST"])
+def add_student():
+ 
+if request.method == "POST":
+ 
+name = request.form["name"]
+marks = request.form["marks"]
+ 
+conn = sqlite3.connect("students.db")
+ 
+cursor = conn.cursor()
+ 
+cursor.execute(
+"INSERT INTO students(name,marks) VALUES(?,?)",
+(name, marks)
+)
+ 
+conn.commit()
+ 
+conn.close()
+ 
+return "Student Saved"
+ 
+return render_template("add_student.html")
+
+Test:
+
+Plain Text
+http://127.0.0.1:5000/add
+ 
+
+Success:
+
+Plain Text
+Student Saved
+Problem 2: TemplateNotFound add_student.html
+
+Error:
+
+Plain Text
+TemplateNotFound
+
+Cause:
+
+Plain Text
+add_student.html missing
+
+Fix:
+
+Created:
+
+Shell
+templates/add_student.html
+
+Fixed ✅
+
+Phase 12: Verify Database
+
+Open:
+
+Shell
+sqlite3 students.db
+
+Check:
+
+SQL
+.tables
+
+Output:
+
+Plain Text
+students
+Problem 3: Wrong SQL
+
+You typed:
+
+SQL
+INSERT INFO students
+
+Wrong ❌
+
+Correct:
+
+SQL
+INSERT INTO students(name, marks)
+VALUES ('Hyarel', 90);
+
+Correct ✅
+
+Verify Data
+SQL
+SELECT * FROM students;
+
+Output:
+
+Plain Text
+1|Hyarel|90
+
+Success ✅
+
+Phase 13: Student List Page
+students.html
+HTML
+<table border="1">
+ 
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Marks</th>
+</tr>
+ 
+{% for row in rows %}
+ 
+<tr>
+<td>{{ row[0] }}</td>
+<td>{{ row[1] }}</td>
+<td>{{ row[2] }}</td>
+</tr>
+ 
+{% endfor %}
+ 
+</table>
+Students Route
+Python
+@app.route("/students")
+def students():
+ 
+conn = sqlite3.connect("students.db")
+ 
+cursor = conn.cursor()
+ 
+cursor.execute(
+"SELECT * FROM students"
+)
+ 
+rows = cursor.fetchall()
+ 
+conn.close()
+ 
+return render_template(
+"students.html",
+rows=rows
+)
+Problem 4: TemplateNotFound students.html
+
+Cause:
+
+Plain Text
+students.html missing
+
+Fix:
+
+Created:
+
+Shell
+templates/students.html
+
+Fixed ✅
+
+Final Working Result
+
+Browser:
+
+Plain Text
+http://127.0.0.1:5000/students
+
+Output:
+
+Plain Text
+Student List
+ 
+ID Name Marks
+ 
+1 Hyarel 90
+
+✅ Working perfectly
+
+Current Status
+Plain Text
+✅ Ubuntu Setup
+✅ Python
+✅ Flask
+✅ SQLite
+✅ Database
+✅ Logging
+✅ Add Student Form
+✅ Save Student
+✅ Student Database
+✅ Student List Page
+✅ HTML Templates
+✅ Jinja Templates
+✅ SQL Insert
+✅ SQL Select
+Next Phase (Not Yet Started)
+Plain Text
+Phase 14:
+Search Student
+ 
+Phase 15:
+Update Student
+ 
+Phase 16:
+Delete Student
+ 
+Phase 17:
+Login System
+ 
+Phase 18:
+CSV Export
+ 
+Phase 19:
+JSON API
+ 
+Phase 20:
+Bootstrap UI
+
+Right now your project is in a healthy state. Before touching Search Student, I recommend taking a backup:
+
+Shell
+cp app.py app_backup.py
+ 
+cp students.db students_backup.db
+
+This way, if anything breaks later, you can restore it easily.
