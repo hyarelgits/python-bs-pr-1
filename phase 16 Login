@@ -1,0 +1,389 @@
+Great choice. ✅ Instead of jumping to Delete, let's build Login System first.
+
+This is more realistic because in real applications:
+
+Plain Text
+Login
+↓
+Access Student Pages
+↓
+Add Student
+Search Student
+Update Student
+Delete Student
+
+
+
+===
+
+
+
+Phase 17: Login System
+Goal
+
+Create:
+
+Plain Text
+http://127.0.0.1:5000/login
+
+User enters:
+
+Plain Text
+Username: admin
+ 
+Password: admin123
+
+
+====
+
+
+If correct:
+
+Plain Text
+Login Successful
+
+
+====
+
+
+Step 1: Create login.html
+
+Go to templates folder:
+
+Shell
+cd ~/student_portal/templates
+
+Create file:
+
+Shell
+nano login.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+
+<h1>Login</h1>
+
+<form method="POST">
+
+    <label>Username:</label>
+
+    <input
+        type="text"
+        name="username"
+        required
+    >
+
+    <br><br>
+
+    <label>Password:</label>
+
+    <input
+        type="password"
+        name="password"
+        required
+    >
+
+    <br><br>
+
+    <button type="submit">
+        Login
+    </button>
+
+</form>
+
+</body>
+</html>
+
+
+===
+
+
+Save:
+
+Plain Text
+Ctrl + O
+Enter
+Ctrl + X
+
+=====
+
+Step 2: Modify app.py Imports
+
+Open:
+
+Shell
+cd ~/student_portal
+ 
+nano app.py
+
+
+Find:
+
+Python
+from flask import Flask, render_template, request
+
+Replace with:
+
+Python
+from flask import Flask, render_template, request, session
+
+
+===========
+
+
+Step 3: Add Secret Key
+
+Below:
+
+Python
+app = Flask(__name__)
+ 
+
+Add:
+
+Python
+app.secret_key = "student_portal_secret"
+
+
+=========
+
+
+Example:
+
+Python
+app = Flask(__name__)
+ 
+app.secret_key = "student_portal_secret"
+
+
+=============
+
+Step 4: Add Login Route
+
+Add this above:
+
+Python
+if __name__ == "__main__":
+
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    if request.method == "POST":
+
+        username = request.form["username"]
+
+        password = request.form["password"]
+
+        if username == "admin" and password == "admin123":
+
+            session["user"] = username
+
+            return "Login Successful"
+
+        return "Invalid Username or Password"
+
+    return render_template("login.html")
+
+
+    =============
+
+
+Step 5: Save
+Plain Text
+Ctrl + O
+Enter
+Ctrl + X
+
+
+
+============
+
+
+Step 7: Test Login Page
+
+Open:
+
+Plain Text
+http://127.0.0.1:5000/login
+
+You should see:
+
+Plain Text
+Login
+ 
+Username
+[________]
+ 
+Password
+[________]
+ 
+[Login]
+Step 8: Test Valid Login
+
+Enter:
+
+Plain Text
+Username: admin
+ 
+Password: admin123
+
+Click:
+
+Plain Text
+Login
+
+Output:
+
+Plain Text
+Login Successful
+ 
+Step 9: Test Invalid Login
+
+Enter:
+
+Plain Text
+Username: admin
+ 
+Password: wrongpassword
+
+Output:
+
+Plain Text
+Invalid Username or Password
+Step 10: Check Session
+
+After successful login:
+
+Python
+session["user"] = username
+
+stores:
+
+Plain Text
+user = admin
+
+inside the browser session.
+
+
+
+=========
+
+
+Step 11: Protect Student Page
+
+Modify /students route.
+
+Current:
+
+@app.route("/students")
+def students():
+
+
+@app.route("/students")
+def students():
+
+    if "user" not in session:
+
+        return "Please Login First"
+
+    conn = sqlite3.connect("students.db")
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM students"
+    )
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        "students.html",
+        rows=rows
+    )
+
+
+    ========
+
+Test Protection
+
+Open:
+
+Plain Text
+http://127.0.0.1:5000/students
+
+Without login you get:
+
+Plain Text
+Please Login First
+
+Login:
+
+Plain Text
+admin
+admin123
+
+
+Then visit:
+
+Plain Text
+/students
+
+Now page opens.
+
+✅ Authentication working.
+
+
+
+=============
+
+What You Learned
+Plain Text
+✅ Session
+✅ Authentication
+✅ Login Form
+✅ Password Validation
+✅ Flask Session
+✅ Protected Routes
+
+
+Current Progress
+Plain Text
+✅ Add Student
+✅ View Students
+✅ Search Student
+✅ Login System
+ 
+Next:
+➡ Update Student
+➡ Delete Student
+➡ Logout
+➡ CSV Export
+➡ JSON API
+➡ Bootstrap UI
+➡ Docker
+➡ Deployment
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
