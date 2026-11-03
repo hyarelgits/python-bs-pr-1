@@ -1,0 +1,288 @@
+Phase 22: Deployment (Run Your Flask Project Like a Real Website)
+
+At this stage, your project has:
+
+Plain Text
+✅ Flask
+✅ SQLite
+✅ Student CRUD
+✅ Search
+✅ Login
+✅ CSV Export
+✅ Bootstrap UI
+✅ GitHub
+✅ Docker
+
+Now we deploy it.
+
+Deployment Levels
+Plain Text
+Level 1
+Run on Ubuntu VM ✅ (Already Done)
+ 
+Level 2
+Run with Gunicorn
+ 
+Level 3
+Run with Nginx
+ 
+Level 4
+HTTPS (SSL)
+ 
+Level 5
+Cloud Server
+Phase 22A: Install Gunicorn
+
+Flask's built-in server is only for development.
+
+Install:
+
+Shell
+source venv/bin/activate
+ 
+pip install gunicorn
+
+Verify:
+
+Shell
+gunicorn --version
+Phase 22B: Test Gunicorn
+
+Inside project folder:
+
+Shell
+cd ~/student_portal
+
+Run:
+
+Shell
+gunicorn app:app
+
+Output:
+
+Plain Text
+Listening at: http://127.0.0.1:8000
+
+Open:
+
+Plain Text
+http://127.0.0.1:8000
+
+Your application should work.
+
+Phase 22C: Run on Network IP
+
+Find Ubuntu IP:
+
+Shell
+ip addr
+
+Or:
+
+Shell
+hostname -I
+
+Example:
+
+Plain Text
+192.168.1.100
+
+Run:
+
+Shell
+gunicorn --bind 0.0.0.0:8000 app:app
+
+Now access:
+
+Plain Text
+http://192.168.1.100:8000
+
+from another machine on the network.
+
+Phase 22D: Install Nginx
+
+Install:
+
+Shell
+sudo apt update
+ 
+sudo apt install nginx -y
+
+Verify:
+
+Shell
+sudo systemctl status nginx
+
+Open browser:
+
+Plain Text
+http://localhost
+ 
+
+You should see:
+
+Plain Text
+Welcome to nginx
+Phase 22E: Configure Nginx
+
+Create config:
+
+Shell
+sudo nano /etc/nginx/sites-available/student_portal
+
+Paste:
+
+Nginx Config
+server {
+ 
+listen 80;
+ 
+server_name localhost;
+ 
+location / {
+ 
+proxy_pass http://127.0.0.1:8000;
+ 
+proxy_set_header Host $host;
+ 
+proxy_set_header X-Real-IP $remote_addr;
+}
+}
+
+Save.
+
+Enable Site
+Shell
+sudo ln -s \
+/etc/nginx/sites-available/student_portal \
+/etc/nginx/sites-enabled/
+
+Check config:
+
+Shell
+sudo nginx -t
+
+Expected:
+
+Plain Text
+syntax is ok
+ 
+
+Restart:
+
+Shell
+sudo systemctl restart nginx
+Phase 22F: Start Application
+
+Terminal 1:
+
+Shell
+cd ~/student_portal
+ 
+source venv/bin/activate
+ 
+gunicorn --bind 127.0.0.1:8000 app:app
+
+Terminal 2:
+
+Shell
+systemctl status nginx
+
+Open:
+
+Plain Text
+http://localhost
+
+Your Student Portal should appear.
+
+Phase 22G: Run Gunicorn in Background
+Shell
+nohup gunicorn \
+--bind 127.0.0.1:8000 \
+app:app &
+
+Check:
+
+Shell
+ps aux | grep gunicorn
+Phase 22H: Open Firewall
+
+If firewall is enabled:
+
+Shell
+sudo ufw allow 80
+
+Check:
+
+Shell
+sudo ufw status
+Phase 22I: HTTPS (Optional)
+
+Install:
+
+Shell
+sudo apt install certbot \
+python3-certbot-nginx -y
+
+If you have a real domain:
+
+Shell
+sudo certbot --nginx
+
+This enables:
+
+Plain Text
+https://your-domain.com
+Final Production Architecture
+Plain Text
+Browser
+│
+▼
+Nginx (Port 80)
+│
+▼
+Gunicorn (Port 8000)
+│
+▼
+Flask Application
+│
+▼
+SQLite Database
+Skills Gained From This Project
+Plain Text
+✅ Linux
+✅ Ubuntu
+✅ Python
+✅ Flask
+✅ SQLite
+✅ CRUD
+✅ Search
+✅ Login
+✅ HTML
+✅ Bootstrap
+✅ Logging
+✅ CSV
+✅ Git
+✅ GitHub
+✅ Docker
+✅ Gunicorn
+✅ Nginx
+✅ Deployment
+Recommended Next Project
+
+After finishing deployment, build:
+
+Plain Text
+Project 2:
+Employee Management System
+ 
+Project 3:
+Expense Tracker
+ 
+Project 4:
+REST API with Flask
+ 
+Project 5:
+AI Chatbot using Flask + Ollama
+
+At this point, your Student Portal is a complete beginner-to-intermediate full-stack Python project and is portfolio-ready. 🚀
