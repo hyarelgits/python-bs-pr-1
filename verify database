@@ -1,0 +1,89 @@
+Test 1
+
+Try:
+
+Plain Text
+http://127.0.0.1:5000/search?name=Hyarel
+
+Expected:
+
+Plain Text
+[(1, 'Hyarel', 90)]
+Test 2: Verify Database Data
+
+Run:
+
+Shell
+sqlite3 students.db
+
+Then:
+
+SQL
+SELECT * FROM students;
+
+Expected:
+
+Plain Text
+1|Hyarel|90
+Better Search (Case-Insensitive)
+
+Replace:
+
+Python
+cursor.execute(
+"SELECT * FROM students WHERE name=?",
+(name,)
+)
+
+with:
+
+Python
+cursor.execute(
+"SELECT * FROM students WHERE LOWER(name)=LOWER(?)",
+(name,)
+)
+
+Now all of these will work:
+
+Plain Text
+Hyarel
+hyarel
+HYAREL
+hYaReL
+Verify Your Search Route
+
+Your /search route should look like:
+
+Python
+@app.route("/search")
+def search():
+ 
+name = request.args.get("name")
+ 
+conn = sqlite3.connect("students.db")
+ 
+cursor = conn.cursor()
+ 
+cursor.execute(
+"SELECT * FROM students WHERE LOWER(name)=LOWER(?)",
+(name,)
+)
+ 
+rows = cursor.fetchall()
+ 
+conn.close()
+ 
+return str(rows)
+Current Status
+Plain Text
+✅ Create Student
+✅ Read Students
+✅ Search Student
+✅ SQLite Database
+✅ HTML Templates
+✅ Logging
+ 
+Next:
+➡ Phase 15 Update Student
+➡ Phase 16 Delete Student
+➡ Phase 17 Login System
