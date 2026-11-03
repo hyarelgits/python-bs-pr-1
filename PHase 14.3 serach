@@ -1,0 +1,498 @@
+Phase 14: Search Student
+
+Now that you have:
+
+✅ Added Student
+ ✅ Saved Student in SQLite
+ ✅ Viewed Students (/students)
+
+The next logical feature is:
+
+
+Search Student by Name
+
+
+Goal
+
+Suppose database contains:
+
+Plain Text
+
+
+
+
+===
+
+
+
+
+
+ID    Name      Marks
+
+1     Hyarel    90
+2     Ram       80
+3     John      75
+
+
+
+
+====
+
+
+
+
+You should be able to search:
+
+Plain Text
+Hyarel
+
+and get:
+
+Plain Text
+1 Hyarel 90
+
+
+==============
+
+
+Step 1: Open app.py
+Shell
+nano app.py
+
+
+
+=========
+
+
+
+Step 2: Add Search Route
+
+Insert this route above:
+
+
+
+=========
+
+
+
+if __name__ == "__main__":
+
+
+
+
+@app.route("/search")
+def search():
+
+    name = request.args.get("name")
+
+    conn = sqlite3.connect("students.db")
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM students WHERE name=?",
+        (name,)
+    )
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return str(rows)
+
+
+
+============
+
+
+Step 3: Save File
+Plain Text
+Ctrl + O
+Enter
+Ctrl + X
+
+
+
+=========
+
+
+
+tep 4: Restart Flask
+
+Stop Flask:
+
+Plain Text
+Ctrl + C
+
+Start Flask:
+
+Shell
+python3 app.py
+
+
+========
+
+
+
+Step 5: Test Search
+
+Open browser:
+
+Plain Text
+http://127.0.0.1:5000/search?name=Hyarel
+
+Expected:
+
+Plain Text
+[(1, 'Hyarel', 90)]
+
+
+================
+
+
+How It Works
+This Part
+Python
+name = request.args.get("name")
+
+Reads:
+
+Plain Text
+?name=Hyarel
+
+From URL:
+
+Plain Text
+http://127.0.0.1:5000/search?name=Hyarel
+
+So:
+
+Python
+name = "Hyarel"
+This Part
+Python
+cursor.execute(
+"SELECT * FROM students WHERE name=?",
+(name,)
+)
+
+
+
+Runs SQL:
+
+SQL
+SELECT * FROM students
+WHERE name='Hyarel';
+
+SQLite returns:
+
+Plain Text
+1|Hyarel|90
+
+
+
+==================
+
+
+
+Problem With Current Search
+
+Current search uses URL:
+
+Plain Text
+/search?name=Hyarel
+
+Not user-friendly.
+
+Let's build a search page.
+
+
+=================
+
+Step 6: Create search.html
+
+Go to templates:
+
+Shell
+cd templates
+
+Create file:
+
+Shell
+nano search.html
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Student</title>
+</head>
+<body>
+
+<h1>Search Student</h1>
+
+<form method="GET">
+
+    <input
+        type="text"
+        name="name"
+        placeholder="Enter Student Name"
+    >
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+
+</body>
+</html>
+
+
+
+
+
+==============
+
+
+
+
+Step 7: Modify Search Route
+
+Replace old route with:
+
+
+
+@app.route("/search", methods=["GET"])
+def search():
+
+    name = request.args.get("name")
+
+    if not name:
+
+        return render_template(
+            "search.html"
+        )
+
+    conn = sqlite3.connect(
+        "students.db"
+    )
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM students WHERE name=?",
+        (name,)
+    )
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return str(rows)
+
+
+
+===========
+
+
+
+Restart Flask
+Shell
+python3 app.py
+Open Search Page
+
+Visit:
+
+Plain Text
+http://127.0.0.1:5000/search
+
+
+
+================
+
+
+
+Test Search
+
+Type:
+
+Plain Text
+Hyarel
+
+Click:
+
+Plain Text
+Search
+
+Expected:
+
+Plain Text
+[(1, 'Hyarel', 90)]
+Step 8: Better Display Results
+
+Instead of:
+
+Plain Text
+[(1, 'Hyarel', 90)]
+
+Let's create a proper result page.
+
+Create:
+
+Shell
+nano templates/search_result.html
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Result</title>
+</head>
+<body>
+
+<h1>Search Result</h1>
+
+<table border="1">
+
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Marks</th>
+</tr>
+
+{% for row in rows %}
+
+<tr>
+    <td>{{ row[0] }}</td>
+    <td>{{ row[1] }}</td>
+    <td>{{ row[2] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>
+
+
+===============
+
+
+
+
+Update Route Again
+
+Replace:
+
+
+
+return str(rows)
+
+
+
+
+===
+
+
+
+
+return render_template(
+    "search_result.html",
+    rows=rows
+)
+
+
+
+======
+
+
+
+
+Final Search Flow
+Plain Text
+/search
+↓
+Enter Student Name
+↓
+Click Search
+↓
+Database Query
+↓
+Display Result Table
+
+
+
+===========
+
+
+
+
+Test Cases
+Existing Student
+
+Input:
+
+Plain Text
+Hyarel
+
+Output:
+
+Plain Text
+ID Name Marks
+ 
+1 Hyarel 90
+Non-Existing Student
+
+Input:
+
+Plain Text
+Amit
+
+Output:
+
+Plain Text
+No records found
+
+(We'll improve this later.)
+
+What You Learned
+Plain Text
+✅ request.args.get()
+ 
+✅ URL Parameters
+ 
+✅ SQL WHERE Clause
+ 
+✅ Database Search
+ 
+✅ HTML Search Form
+ 
+✅ Dynamic Search Results
+ 
+✅ render_template()
+After Search Student
+
+Next phases:
+
+Plain Text
+Phase 15 → Update Student
+ 
+Phase 16 → Delete Student
+ 
+Phase 17 → Login System
+ 
+Phase 18 → CSV Export
+ 
+Phase 19 → JSON API
+ 
+Phase 20 → Bootstrap UI
+
+You are now moving from Read (View Students) to Search, which is the second major CRUD feature. 🚀
+
+Show the complete corrected app.pyAdd a “No records found” message
+
+
+
+
