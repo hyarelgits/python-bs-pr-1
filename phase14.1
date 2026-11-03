@@ -55,3 +55,81 @@ if __name__ == "__main__":
     logging.info("Application Started")
 
     app.run(debug=True)
+
+
+
+
+
+    =======================
+
+
+    pthon3 app.py
+
+
+sudo fuser -k 5000/tcp
+
+successfully killed the old Flask process.
+
+Then you ran:
+
+Shell
+python3 app.py
+
+and now you see:
+
+Plain Text
+* Serving Flask app 'app'
+* Debug mode: on
+
+
+
+
+-=================
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Student</title>
+</head>
+<body>
+
+    <h1>Add Student</h1>
+
+    <form method="POST">
+
+        <label>Student Name:</label>
+        <input
+            type="text"
+            name="name"
+            placeholder="Enter Student Name"
+            required
+        >
+
+        <br><br>
+
+        <label>Marks:</label>
+        <input
+            type="number"
+            name="marks"
+            placeholder="Enter Marks"
+            min="0"
+            max="100"
+            required
+        >
+
+        <br><br>
+
+        <button type="submit">
+            Save Student
+        </button>
+
+    </form>
+
+</body>
+</html>
+
+
+    
