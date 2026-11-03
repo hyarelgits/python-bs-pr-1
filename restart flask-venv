@@ -1,0 +1,56 @@
+✅ Virtual Environment Activated Successfully
+
+You ran:
+
+Shell
+source venv/bin/activate
+
+and your prompt changed to:
+
+Shell
+(venv) root@devops:~/student_portal#
+
+So this part is fixed.
+
+✅ Flask Module Error Fixed
+
+Previously:
+
+Plain Text
+ModuleNotFoundError: No module named 'flask'
+
+Now Flask starts:
+
+Plain Text
+* Serving Flask app 'app'
+* Debug mode: on
+
+So Flask is installed and working.
+
+❌ Current Problem: Port 5000 Already in Use
+
+Error:
+
+Plain Text
+Address already in use
+Port 5000 is in use by another program
+ 
+
+This means another Flask process is already running.
+
+Fix Option 1 (Recommended)
+
+Kill the process using port 5000:
+
+Shell
+sudo fuser -k 5000/tcp
+
+Then start Flask again:
+
+Shell
+python3 app.py
+
+Expected:
+
+Plain Text
+* Running on http://127.0.0.1:5000
