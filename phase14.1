@@ -132,4 +132,224 @@ Plain Text
 </html>
 
 
-    
+  ==================
+
+
+sudo lsof -i :5000
+
+Kill it:
+
+Shell
+sudo fuser -k 5000/tcp
+
+python3 app.py
+
+
+=====================
+
+
+
+✅ Flask route /add is working
+ ✅ HTML form is working
+ ✅ Form data is being submitted
+ ✅ SQLite INSERT query executed successfully
+ ✅ Student data was saved
+ ✅ Logging code was executed
+
+You have successfully completed:
+
+Plain Text
+✅ Phase 14 - Logging
+✅ Phase 15 - Add Student Form
+Now Verify Student Is Actually Saved
+
+
+
+
+========================
+
+
+
+Now Verify Student Is Actually Saved
+
+Open a new terminal:
+
+Shell
+cd ~/student_portal
+
+Install SQLite client if needed:
+
+Shell
+sudo apt install sqlite3 -y
+
+Open database:
+
+Shell
+sqlite3 students.db
+
+You will see:
+
+Plain Text
+sqlite>
+
+Run:
+
+SQL
+SELECT * FROM students;
+
+Example output:
+
+Plain Text
+1|Hyarel|90
+
+Exit SQLite:
+
+SQL
+.quit
+Next Phase: View All Students
+Step 1: Create Students Page
+
+Create file:
+
+Shell
+nano templates/students.html
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students</title>
+</head>
+<body>
+
+<h1>Student List</h1>
+
+<table border="1">
+
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Marks</th>
+</tr>
+
+{% for row in rows %}
+
+<tr>
+    <td>{{ row[0] }}</td>
+    <td>{{ row[1] }}</td>
+    <td>{{ row[2] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>
+=============
+
+Step 2: Update app.py
+
+Add this route above:
+
+
+@app.route("/students")
+def students():
+
+    conn = sqlite3.connect("students.db")
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM students"
+    )
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        "students.html",
+        rows=rows
+    )
+
+
+
+
+  ==========
+
+
+  Step 3: Restart Flask
+
+Stop Flask:
+
+Plain Text
+Ctrl + C
+
+Start again:
+
+Shell
+python3 app.py
+
+
+=====
+
+
+Step 4: Open Students Page
+
+Visit:
+
+Plain Text
+http://127.0.0.1:5000/students
+
+
+
+Step 4: Open Students Page
+
+Visit:
+
+Plain Text
+http://127.0.0.1:5000/students
+
+Expected:
+
+Plain Text
+Student List
+ 
++----+--------+-------+
+| ID | Name | Marks |
++----+--------+-------+
+| 1 | Hyarel | 90 |
++----+--------+-------+
+
+
+
+==========
+
+
+After /students Works
+
+We will build:
+
+Plain Text
+Phase 16 ✅ View Students
+Phase 17 → Search Student
+Phase 18 → Update Student
+Phase 19 → Delete Student
+Phase 20 → Login System
+Phase 21 → CSV Export
+Phase 22 → JSON API
+
+
+API
+
+👉 Next, create students.html, add the /students route, and open:
+
+Plain Text
+http://127.0.0.1:5000/students
+
+
+======================
+
+
+
