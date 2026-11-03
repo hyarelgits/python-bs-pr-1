@@ -1,0 +1,148 @@
+@app.route("/students")
+def students():
+
+    conn = sqlite3.connect("students.db")
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM students"
+    )
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    return render_template(
+        "students.html",
+        rows=rows
+    )
+
+
+    ===========
+
+
+nano templates/students.html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students</title>
+</head>
+<body>
+
+<h1>Student List</h1>
+
+<table border="1">
+
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Marks</th>
+</tr>
+
+{% for row in rows %}
+
+<tr>
+    <td>{{ row[0] }}</td>
+    <td>{{ row[1] }}</td>
+    <td>{{ row[2] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>
+
+
+=============
+
+
+from flask import Flask, render_template, request
+import sqlite3
+import logging
+import os
+
+
+====
+
+
+Stop Flask:
+
+Plain Text
+Ctrl + C
+
+Start again:
+
+Shell
+python3 app.py
+
+
+=========
+
+
+http://127.0.0.1:5000/students
+
+
+------------
+
+
+
+If Student Table Is Empty
+
+Insert a student:
+
+Shell
+sqlite3 students.db
+
+Run:
+
+SQL
+INSERT INTO students(name, marks)
+VALUES ('Hyarel', 90);
+
+
+
+=================
+
+SELECT * FROM students;
+
+You should see:
+
+Plain Text
+1|Hyarel|90
+
+Exit:
+
+SQL
+.quit
+
+Refresh:
+
+Plain Text
+http://127.0.0.1:5000/students
+
+Now the page should show:
+
+Plain Text
+Student List
+ 
+ID Name Marks
+ 
+1 Hyarel 90
+Next
+
+Before continuing, paste the output of:
+
+Shell
+cat app.py
+
+so I can verify the /students route is in the correct location.
+
+
+
+
+
+    
