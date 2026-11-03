@@ -1,0 +1,417 @@
+Project Structure
+Plain Text
+student_portal/
+ 
+├── app.py
+├── students.db
+├── templates/
+│ ├── index.html
+│ ├── add_student.html
+│ └── students.html
+├── logs/
+│ └── app.log
+✅ Variables
+
+Used to store values.
+
+Python
+name = request.form["name"]
+marks = request.form["marks"]
+
+Used in:
+
+Plain Text
+app.py
+/add route
+✅ Conditions (if/else)
+
+Used to make decisions.
+
+Python
+if request.method == "POST":
+ 
+name = request.form["name"]
+ 
+else:
+return render_template(
+"add_student.html"
+)
+ 
+
+Used in:
+
+Plain Text
+Add Student Page
+Search Page
+Login Page
+✅ Loops
+
+Used in HTML template.
+
+HTML
+{% for row in rows %}
+ 
+<tr>
+<td>{{ row[0] }}</td>
+<td>{{ row[1] }}</td>
+<td>{{ row[2] }}</td>
+</tr>
+ 
+{% endfor %}
+
+Used in:
+
+Plain Text
+students.html
+
+Purpose:
+
+Plain Text
+Display all students
+✅ Functions
+
+Every Flask route is a function.
+
+Python
+@app.route("/")
+def home():
+Python
+@app.route("/add")
+def add_student():
+Python
+@app.route("/students")
+def students():
+
+Used in:
+
+Plain Text
+app.py
+✅ Lists
+
+SQLite returns rows as a list.
+
+Python
+rows = cursor.fetchall()
+
+Example:
+
+Python
+[
+(1,"Hyarel",90),
+(2,"Ram",80)
+]
+
+Used in:
+
+Plain Text
+/students
+/search
+✅ Dictionaries
+
+Flask JSON API uses dictionaries.
+
+Example:
+
+Python
+return {
+"name":"Hyarel",
+"marks":90
+}
+
+Used in:
+
+Plain Text
+Future JSON API
+✅ File Handling
+
+Log file:
+
+Python
+logging.basicConfig(
+filename="logs/app.log"
+)
+
+Creates:
+
+Plain Text
+logs/app.log
+
+CSV Export:
+
+Python
+with open(
+"students.csv",
+"w"
+) as f:
+
+Used in:
+
+Plain Text
+Logging
+CSV Export
+✅ SQLite
+
+Database operations.
+
+Connection:
+
+Python
+conn = sqlite3.connect(
+"students.db"
+)
+
+Insert:
+
+Python
+INSERT INTO students
+
+Read:
+
+Python
+SELECT * FROM students
+
+Update:
+
+Python
+UPDATE students
+
+Delete:
+
+Python
+DELETE students
+ 
+
+Used in:
+
+Plain Text
+Entire application
+✅ Logging
+
+Current implementation:
+
+Python
+logging.info(
+f"Student Added | Name={name}"
+)
+
+File:
+
+Plain Text
+logs/app.log
+
+Example:
+
+Plain Text
+INFO Student Added
+✅ Exception Handling
+
+Not fully added yet.
+
+Planned usage:
+
+Python
+try:
+ 
+conn = sqlite3.connect(
+"students.db"
+)
+ 
+except Exception as e:
+ 
+print(e)
+
+Used in:
+
+Plain Text
+Database Operations
+✅ OOP Concepts
+
+Planned Student Model.
+
+Python
+class Student:
+ 
+def __init__(
+self,
+name,
+marks
+):
+ 
+self.name = name
+self.marks = marks
+
+Used in:
+
+Plain Text
+models/student.py
+✅ HTML
+
+Pages created:
+
+Plain Text
+index.html
+ 
+add_student.html
+ 
+students.html
+
+Used for:
+
+Plain Text
+Web User Interface
+✅ Flask
+
+Backend Framework.
+
+Example:
+
+Python
+from flask import Flask
+ 
+app = Flask(__name__)
+
+Routes:
+
+Python
+/
+/add
+/students
+✅ CRUD
+Create
+Python
+INSERT INTO students
+
+Route:
+
+Plain Text
+/ add
+
+Completed ✅
+
+Read
+Python
+SELECT * FROM students
+
+Route:
+
+Plain Text
+/students
+
+Completed ✅
+
+Update
+Python
+UPDATE students
+
+Route:
+
+Plain Text
+/update
+
+Next Step ⏳
+
+Delete
+Python
+DELETE FROM students
+
+Route:
+
+Plain Text
+/delete
+
+Next Step ⏳
+
+✅ Search
+
+Phase 14.
+
+Python
+SELECT *
+FROM students
+WHERE name=?
+
+Route:
+
+Plain Text
+/search
+ 
+
+Not implemented yet, next feature.
+
+✅ Login
+
+Planned feature.
+
+Python
+session["user"]
+
+Route:
+
+Plain Text
+/login
+
+Future phase.
+
+✅ CSV
+
+Planned export.
+
+Python
+import csv
+
+Create:
+
+Plain Text
+students.csv
+✅ JSON
+
+Planned API.
+
+Route:
+
+Python
+@app.route("/api/student")
+
+Return:
+
+Python
+{
+"name":"Hyarel",
+"marks":90
+}
+Topics Covered So Far
+Plain Text
+✅ Variables
+✅ Strings
+✅ Numbers
+✅ Functions
+✅ Conditions
+✅ Lists
+✅ SQLite
+✅ File Handling
+✅ Logging
+✅ HTML
+✅ Flask
+✅ Create (CRUD)
+✅ Read (CRUD)
+✅ Templates
+✅ Jinja Loops
+Topics Coming Next
+Plain Text
+⬜ Search
+⬜ Update
+⬜ Delete
+⬜ Exception Handling
+⬜ Login
+⬜ Session Management
+⬜ JSON
+⬜ CSV
+⬜ OOP Classes
+⬜ Bootstrap
+⬜ GitHub
+⬜ Docker
+⬜ Deployment
+
+So far, your project already demonstrates roughly 30–40 Python topics in practical use, and the next phases will cover most of the remaining topics from your handbook. 🚀
+
+FilesFiles
