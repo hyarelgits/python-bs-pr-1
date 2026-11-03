@@ -1,0 +1,184 @@
+Great! Let's do Phase 15: Update Student.
+
+Currently your database contains:
+
+Plain Text
+ID Name Marks
+ 
+1 Hyarel 90
+
+Goal:
+
+Plain Text
+ID Name Marks
+ 
+1 Hyarel 95
+
+
+
+===============
+
+Step 1: Open app.py
+Shell
+nano app.py
+
+Step 2: Add Update Route
+
+Add this code above:
+
+Python
+if __name__ == "__main__":
+ 
+
+@app.route("/update")
+def update():
+
+    conn = sqlite3.connect("students.db")
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "UPDATE students SET marks=95 WHERE id=1"
+    )
+
+    conn.commit()
+
+    conn.close()
+
+    return "Student Updated Successfully"
+
+
+    ==================
+
+
+Your app.py will now have:
+
+
+@app.route("/students")
+def students():
+    ...
+
+@app.route("/search")
+def search():
+    ...
+
+@app.route("/update")
+def update():
+
+    conn = sqlite3.connect("students.db")
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "UPDATE students SET marks=95 WHERE id=1"
+    )
+
+    conn.commit()
+
+    conn.close()
+
+    return "Student Updated Successfully"
+
+
+
+    =============
+    
+
+    Step 3: Save File
+
+    Step 4: Restart Flask
+
+    
+====
+Step 5: Execute Update
+
+Open browser:
+
+Plain Text
+http://127.0.0.1:5000/update
+
+Expected output:
+
+Plain Text
+Student Updated Successfully
+
+
+
+================\
+
+
+
+
+Step 6: Verify Database
+
+Open SQLite:
+
+Shell
+sqlite3 students.db
+
+Run:
+
+SQL
+SELECT * FROM students;
+
+Expected:
+
+Plain Text
+1|Hyarel|95
+
+Notice:
+
+Plain Text
+90 → 95
+
+Student marks updated successfully ✅
+
+Step 7: Verify From Website
+
+Open:
+
+Plain Text
+http://127.0.0.1:5000/students
+ 
+
+Expected:
+
+Plain Text
+Student List
+ 
+ID Name Marks
+ 
+1 Hyarel 95
+What Did You Learn?
+SQL UPDATE
+SQL
+UPDATE students
+SET marks=95
+WHERE id=1;
+
+Meaning:
+
+Plain Text
+UPDATE = Modify existing data
+ 
+SET = New value
+ 
+WHERE = Which record to update
+CRUD Progress
+Plain Text
+✅ Create (/add)
+ 
+✅ Read (/students)
+ 
+✅ Search (/search)
+ 
+✅ Update (/update)
+ 
+⬜ Delete (/delete)
+
+
+
+
+
+
+
