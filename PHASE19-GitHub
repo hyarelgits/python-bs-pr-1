@@ -1,0 +1,321 @@
+Phase 20: Upload Project to GitHub
+
+Now that your Student Portal is working, let's save it on GitHub.
+
+Benefits:
+
+Plain Text
+✅ Backup your code
+✅ Share with recruiters
+✅ Show in interviews
+✅ Track changes
+✅ Learn Git
+ 
+Step 1: Check Git
+
+Run:
+
+Shell
+git --version
+ 
+
+Example:
+
+Plain Text
+git version 2.34.1
+
+If not installed:
+
+Shell
+sudo apt update
+sudo apt install git -y
+Step 2: Go to Project Folder
+Shell
+cd ~/student_portal
+
+Verify:
+
+Shell
+pwd
+
+Output:
+
+Plain Text
+/root/student_portal
+Step 3: Initialize Git Repository
+Shell
+git init
+
+Output:
+
+Plain Text
+Initialized empty Git repository
+Step 4: Check Files
+Shell
+git status
+
+You will see many files marked:
+
+Plain Text
+Untracked files
+Step 5: Create .gitignore
+
+Create:
+
+Shell
+nano .gitignore
+
+Paste:
+
+Plain Text
+venv/
+__pycache__/
+*.pyc
+logs/
+students.db
+
+Save:
+
+Plain Text
+Ctrl + O
+Enter
+Ctrl + X
+Why Exclude These?
+Plain Text
+venv/ -> Large virtual environment
+__pycache__ -> Python cache
+logs/ -> Generated logs
+
+
+
+
+=============
+
+Step 6: Check Status Again
+Shell
+git status
+
+Notice some files disappear from tracking.
+
+Step 7: Add Files
+Shell
+git add .
+
+Verify:
+
+Shell
+git status
+
+You should see:
+
+Plain Text
+Changes to be committed:
+Step 8: First Commit
+Shell
+git commit -m "Initial Student Portal Project"
+
+Example:
+
+Plain Text
+[main abc123]
+Initial Student Portal Project
+Step 9: Create GitHub Repository
+
+Open browser:
+
+Plain Text
+https://github.com
+
+Login.
+
+Click:
+
+Plain Text
+New Repository
+
+Name:
+
+Plain Text
+student-portal
+
+Repository type:
+
+Plain Text
+Public
+
+Click:
+
+Plain Text
+Create Repository
+Step 10: Configure Git User (If Asked)
+
+If Git shows:
+
+Plain Text
+Please tell me who you are
+
+Run:
+
+Shell
+git config --global user.name "Your Name"
+Shell
+git config --global user.email "your@email.com"
+ 
+
+Example:
+
+Shell
+git config --global user.name "Hyarel Sonawane"
+Step 11: Connect Local Project to GitHub
+
+GitHub will show a URL similar to:
+
+Plain Text
+https://github.com/your-username/student-portal.git
+
+Run:
+
+Shell
+git remote add origin https://github.com/your-username/student-portal.git
+ 
+
+Check:
+
+Shell
+git remote -v
+ 
+Step 12: Push Code
+
+Rename branch:
+
+Shell
+git branch -M main
+
+Push:
+
+Shell
+git push -u origin main
+
+You may be asked to authenticate.
+
+Step 13: Verify Upload
+
+Refresh GitHub Repository.
+
+You should see:
+
+Plain Text
+student-portal
+ 
+app.py
+ 
+templates/
+add_student.html
+students.html
+search.html
+ 
+requirements.txt
+README.md
+Step 14: Create requirements.txt
+
+Generate package list:
+
+Shell
+pip freeze > requirements.txt
+
+View:
+
+Shell
+cat requirements.txt
+
+Example:
+
+Plain Text
+Flask==3.x.x
+
+Commit:
+
+Shell
+git add requirements.txt
+ 
+git commit -m "Added requirements"
+ 
+git push
+Step 15: Create README.md
+
+Create:
+
+Shell
+nano README.md
+
+Paste:
+
+Markdown
+# Student Portal
+ 
+A Flask-based Student Management System.
+ 
+## Features
+ 
+- Add Student
+- View Students
+- Search Students
+- Login System
+- CSV Export
+- SQLite Database
+- Logging
+ 
+## Technologies
+ 
+- Python
+- Flask
+- SQLite
+- HTML
+- Bootstrap
+ 
+## Run
+ 
+python3 app.py
+
+Commit:
+
+Shell
+git add README.md
+ 
+git commit -m "Added README"
+ 
+git push
+
+
+students.db -> Local database
+
+
+Final Git Commands Cheat Sheet
+Shell
+git status
+ 
+git add .
+ 
+git commit -m "message"
+ 
+git push
+ 
+git pull
+Your Project Roadmap Now
+Plain Text
+✅ Add Student
+✅ View Students
+✅ Search Student
+✅ Login
+✅ CSV Export
+✅ Bootstrap UI
+ 
+Next:
+➡ Update Student
+➡ Delete Student
+➡ JSON API
+➡ GitHub ✅
+➡ Docker
+➡ Deployment
+
+🎉 After uploading to GitHub, your project becomes a portfolio project that you can share in interviews and add to your resume.
