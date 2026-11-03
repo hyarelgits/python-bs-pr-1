@@ -1,0 +1,84 @@
+Student Portal project is functionally complete as a beginner-to-intermediate Flask project.
+
+
+Backend
+Plain Text
+✅ Python
+✅ Flask
+✅ SQLite
+✅ Logging
+✅ Virtual Environment
+Frontend
+Plain Text
+✅ HTML
+✅ Bootstrap UI
+✅ Jinja Templates
+Database Features
+Plain Text
+✅ Add Student
+✅ View Students
+✅ Search Student
+✅ SQLite Database
+Authentication
+Plain Text
+✅ Login Page
+✅ Session Concept
+Data Handling
+Plain Text
+✅ CSV Export
+✅ File Handling
+✅ Logging
+DevOps
+Plain Text
+✅ Git
+✅ GitHub
+✅ Docker
+✅ Gunicorn
+✅ Nginx Deployment Steps
+Python Topics Covered Practically
+Plain Text
+✅ Variables
+✅ Numbers
+✅ Strings
+✅ Conditions
+✅ Functions
+✅ Lists
+✅ Dictionaries
+✅ Loops (Jinja for loop)
+✅ File Handling
+✅ SQLite
+✅ Logging
+✅ Exception Handling (concept learned)
+✅ OOP Concepts (planned/model layer)
+✅ JSON (API concept)
+✅ CSV
+✅ Flask
+✅ CRUD
+✅ Search
+✅ Login
+CRUD Status
+Plain Text
+Create ✅
+Read ✅
+Update ✅
+Delete ✅
+Search ✅
+Project Structure Achieved
+Plain Text
+student_portal/
+ 
+├── app.py
+├── students.db
+├── export_csv.py
+├── requirements.txt
+├── Dockerfile
+├── templates/
+│ ├── index.html
+│ ├── add_student.html
+│ ├── students.html
+│ ├── search.html
+│ ├── search_result.html
+│ └── login.html
+├── logs/
+│ └── app.log
+└── venv/
