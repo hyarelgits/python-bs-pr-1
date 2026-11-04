@@ -1,44 +1,36 @@
-Developed a Python learning and practice repository containing hands-on implementations of variables, loops, functions, collections, string manipulation, file handling, and modular programming while using Git and GitHub for source code management.
-Python Programming
-Control Flow
-Functions
-Data Structures
-File Handling
-Problem Solving
-Git
-GitHub
+🎓 Student Management Portal
+A Flask-based Student Management System built using Python, SQLite, HTML, Bootstrap, Git, and Docker.
 
-
-Variables & Data Types
-            │
-            ▼
-Operators
-            │
-            ▼
-Conditional Statements
-(if / else)
-            │
-            ▼
-Loops
-(for / while)
-            │
-            ▼
-Functions
-            │
-            ▼
-Lists / Tuples / Dictionaries
-            │
-            ▼
-String Operations
-            │
-            ▼
-File Handling
-            │
-            ▼
-Modules
-            │
-            ▼
-Practice Programs
-            │
-            ▼
-GitHub Repository
+Features
+Add Student
+View Students
+Search Students
+Update Students
+Delete Students
+Login System
+CSV Export
+Logging
+Architecture
+Browser
+   |
+   v
+Flask (app.py)
+   |
+   v
+SQLite (students.db)
+   |
+   v
+Student Data
+Technology Stack
+Python
+Flask
+SQLite
+HTML5
+Bootstrap 5
+Git & GitHub
+Docker
+Run
+pip install -r requirements.txt
+python3 app.py
+Author
+Hyarel Sonawane
