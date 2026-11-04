@@ -1,0 +1,105 @@
+2026-11-03 12:28:02,409 - INFO - Application Started
+2026-11-03 12:28:02,428 - WARNING -  * Debugger is active!
+2026-11-03 12:28:02,429 - INFO -  * Debugger PIN: 594-893-606
+2026-11-03 12:28:30,929 - INFO - Application Started
+2026-11-03 12:29:17,082 - INFO - Application Started
+2026-11-03 12:29:17,099 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-11-03 12:29:17,100 - INFO - [33mPress CTRL+C to quit[0m
+2026-11-03 12:29:17,100 - INFO -  * Restarting with stat
+2026-11-03 12:29:17,383 - INFO - Application Started
+2026-11-03 12:29:17,404 - WARNING -  * Debugger is active!
+2026-11-03 12:29:17,405 - INFO -  * Debugger PIN: 140-050-448
+2026-11-03 12:29:50,096 - INFO - 127.0.0.1 - - [03/Nov/2026 12:29:50] "GET / HTTP/1.1" 200 -
+2026-11-03 12:29:51,864 - INFO - 127.0.0.1 - - [03/Nov/2026 12:29:51] "GET / HTTP/1.1" 200 -
+2026-11-03 12:29:52,826 - INFO - 127.0.0.1 - - [03/Nov/2026 12:29:52] "GET / HTTP/1.1" 200 -
+2026-11-03 12:37:12,911 - INFO - 127.0.0.1 - - [03/Nov/2026 12:37:12] "[35m[1mGET /add HTTP/1.1[0m" 500 -
+2026-11-03 12:37:13,133 - INFO - 127.0.0.1 - - [03/Nov/2026 12:37:13] "GET /add?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2026-11-03 12:37:13,135 - INFO - 127.0.0.1 - - [03/Nov/2026 12:37:13] "GET /add?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2026-11-03 12:37:13,310 - INFO - 127.0.0.1 - - [03/Nov/2026 12:37:13] "GET /add?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2026-11-03 12:37:13,326 - INFO - 127.0.0.1 - - [03/Nov/2026 12:37:13] "GET /add?__debugger__=yes&cmd=resource&f=console.png&s=NM65ZH7LP6QHCXuaMbYO HTTP/1.1" 200 -
+2026-11-03 12:38:00,824 - INFO - 127.0.0.1 - - [03/Nov/2026 12:38:00] "[35m[1mGET /add HTTP/1.1[0m" 500 -
+2026-11-03 12:38:00,924 - INFO - 127.0.0.1 - - [03/Nov/2026 12:38:00] "[36mGET /add?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2026-11-03 12:38:00,927 - INFO - 127.0.0.1 - - [03/Nov/2026 12:38:00] "[36mGET /add?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2026-11-03 12:38:00,985 - INFO - 127.0.0.1 - - [03/Nov/2026 12:38:00] "[36mGET /add?__debugger__=yes&cmd=resource&f=console.png&s=NM65ZH7LP6QHCXuaMbYO HTTP/1.1[0m" 304 -
+2026-11-03 12:47:52,544 - INFO - Application Started
+2026-11-03 12:49:37,236 - INFO - Application Started
+2026-11-03 12:49:37,251 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-11-03 12:49:37,251 - INFO - [33mPress CTRL+C to quit[0m
+2026-11-03 12:49:37,252 - INFO -  * Restarting with stat
+2026-11-03 12:49:37,446 - INFO - Application Started
+2026-11-03 12:49:37,456 - WARNING -  * Debugger is active!
+2026-11-03 12:49:37,457 - INFO -  * Debugger PIN: 594-893-606
+2026-11-03 12:49:47,149 - INFO - 127.0.0.1 - - [03/Nov/2026 12:49:47] "GET /add HTTP/1.1" 200 -
+2026-11-03 12:50:03,919 - INFO - Student Added | Name=hyarel | Marks=95
+2026-11-03 12:50:03,919 - INFO - 127.0.0.1 - - [03/Nov/2026 12:50:03] "POST /add HTTP/1.1" 200 -
+2026-11-03 13:06:18,721 - INFO - Student Added | Name=hyarel | Marks=95
+2026-11-03 13:06:18,722 - INFO - 127.0.0.1 - - [03/Nov/2026 13:06:18] "POST /add HTTP/1.1" 200 -
+2026-11-03 13:35:09,548 - INFO - 127.0.0.1 - - [03/Nov/2026 13:35:09] "[33mGET /students HTTP/1.1[0m" 404 -
+2026-11-03 13:35:13,284 - INFO - 127.0.0.1 - - [03/Nov/2026 13:35:13] "[33mGET /students HTTP/1.1[0m" 404 -
+2026-11-03 13:35:21,007 - INFO - 127.0.0.1 - - [03/Nov/2026 13:35:21] "GET / HTTP/1.1" 200 -
+2026-11-03 13:35:37,001 - INFO - 127.0.0.1 - - [03/Nov/2026 13:35:37] "[33mGET /students HTTP/1.1[0m" 404 -
+2026-11-03 13:42:36,462 - INFO -  * Detected change in '/root/student_portal/app.py', reloading
+2026-11-03 13:42:36,529 - INFO -  * Restarting with stat
+2026-11-03 13:42:36,741 - INFO - Application Started
+2026-11-03 13:42:36,755 - WARNING -  * Debugger is active!
+2026-11-03 13:42:36,757 - INFO -  * Debugger PIN: 594-893-606
+2026-11-03 13:45:48,056 - INFO - Application Started
+2026-11-03 13:45:48,071 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-11-03 13:45:48,071 - INFO - [33mPress CTRL+C to quit[0m
+2026-11-03 13:45:48,073 - INFO -  * Restarting with stat
+2026-11-03 13:45:48,265 - INFO - Application Started
+2026-11-03 13:45:48,276 - WARNING -  * Debugger is active!
+2026-11-03 13:45:48,277 - INFO -  * Debugger PIN: 594-893-606
+2026-11-03 13:46:14,615 - INFO - 127.0.0.1 - - [03/Nov/2026 13:46:14] "[35m[1mGET /students HTTP/1.1[0m" 500 -
+2026-11-03 13:46:14,719 - INFO - 127.0.0.1 - - [03/Nov/2026 13:46:14] "GET /students?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2026-11-03 13:46:14,725 - INFO - 127.0.0.1 - - [03/Nov/2026 13:46:14] "GET /students?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2026-11-03 13:46:14,811 - INFO - 127.0.0.1 - - [03/Nov/2026 13:46:14] "GET /students?__debugger__=yes&cmd=resource&f=console.png&s=59Z4795C0v49nFOt15yv HTTP/1.1" 200 -
+2026-11-03 13:46:14,826 - INFO - 127.0.0.1 - - [03/Nov/2026 13:46:14] "GET /students?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2026-11-03 14:00:29,967 - INFO - Application Started
+2026-11-03 14:00:29,983 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-11-03 14:00:29,983 - INFO - [33mPress CTRL+C to quit[0m
+2026-11-03 14:00:29,984 - INFO -  * Restarting with stat
+2026-11-03 14:00:30,203 - INFO - Application Started
+2026-11-03 14:00:30,215 - WARNING -  * Debugger is active!
+2026-11-03 14:00:30,216 - INFO -  * Debugger PIN: 594-893-606
+2026-11-03 14:00:44,142 - INFO - 127.0.0.1 - - [03/Nov/2026 14:00:44] "GET /students HTTP/1.1" 200 -
+2026-11-03 14:09:15,324 - INFO - Application Started
+2026-11-03 14:09:42,315 - INFO - 127.0.0.1 - - [03/Nov/2026 14:09:42] "GET /students HTTP/1.1" 200 -
+2026-11-03 14:14:04,132 - INFO - 127.0.0.1 - - [03/Nov/2026 14:14:04] "GET /students HTTP/1.1" 200 -
+2026-11-03 15:48:07,322 - INFO -  * Detected change in '/root/student_portal/app.py', reloading
+2026-11-03 15:48:07,448 - INFO -  * Restarting with stat
+2026-11-03 15:48:07,754 - INFO - Application Started
+2026-11-03 15:48:07,768 - WARNING -  * Debugger is active!
+2026-11-03 15:48:07,769 - INFO -  * Debugger PIN: 594-893-606
+2026-11-03 15:48:47,560 - INFO - Application Started
+2026-11-03 15:48:47,577 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-11-03 15:48:47,578 - INFO - [33mPress CTRL+C to quit[0m
+2026-11-03 15:48:47,580 - INFO -  * Restarting with stat
+2026-11-03 15:48:47,772 - INFO - Application Started
+2026-11-03 15:48:47,782 - WARNING -  * Debugger is active!
+2026-11-03 15:48:47,783 - INFO -  * Debugger PIN: 594-893-606
+2026-11-03 15:49:45,726 - INFO - 127.0.0.1 - - [03/Nov/2026 15:49:45] "GET /search?name=Hyarel HTTP/1.1" 200 -
+2026-11-03 15:58:14,144 - INFO -  * Detected change in '/root/student_portal/app.py', reloading
+2026-11-03 15:58:14,191 - INFO -  * Restarting with stat
+2026-11-03 15:58:14,502 - INFO - Application Started
+2026-11-03 15:58:14,513 - WARNING -  * Debugger is active!
+2026-11-03 15:58:14,514 - INFO -  * Debugger PIN: 594-893-606
+2026-11-03 16:00:39,091 - INFO - Application Started
+2026-11-03 16:02:43,733 - INFO - Application Started
+2026-11-03 16:02:43,749 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-11-03 16:02:43,749 - INFO - [33mPress CTRL+C to quit[0m
+2026-11-03 16:02:43,750 - INFO -  * Restarting with stat
+2026-11-03 16:02:44,046 - INFO - Application Started
+2026-11-03 16:02:44,055 - WARNING -  * Debugger is active!
+2026-11-03 16:02:44,056 - INFO -  * Debugger PIN: 132-697-026
+2026-11-03 16:03:14,187 - INFO - 127.0.0.1 - - [03/Nov/2026 16:03:14] "GET /search HTTP/1.1" 200 -
+2026-11-03 16:03:23,078 - INFO - 127.0.0.1 - - [03/Nov/2026 16:03:23] "GET /search?name=hyarel HTTP/1.1" 200 -
+2026-11-03 16:14:10,109 - INFO - 127.0.0.1 - - [03/Nov/2026 16:14:10] "GET /search?name=Hyarel HTTP/1.1" 200 -
+2026-11-03 16:15:06,174 - INFO - 127.0.0.1 - - [03/Nov/2026 16:15:06] "GET /search HTTP/1.1" 200 -
+2026-11-03 16:15:15,257 - INFO - 127.0.0.1 - - [03/Nov/2026 16:15:15] "GET /search?name=Hyarel HTTP/1.1" 200 -
